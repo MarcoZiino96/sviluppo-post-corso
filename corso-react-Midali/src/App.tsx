@@ -4,6 +4,7 @@ import Card from "./components/Card";
 
 function App() {
   
+  const [showCity, setShowCity] = useState(false);
   const [showVisited, setShowVisite] = useState(false);
   const [showNotVisited, setShowNotVisite] = useState(false);
   const cities = [
@@ -70,33 +71,40 @@ function App() {
     ))
    
   }
+
+  function allCity(){
+
+    return cities.map((city) => (
+      <Card
+        key={city.id}
+        title={city.title}
+        img={city.img}
+        isVisited={city.isVisited}
+      >
+        {city.description}
+      </Card>
+    ))
+  }
   return (
     <>
-      <div className=" container m-auto">
-        <div className="grid grid-cols-2 justify-items-center">
+      <div className=" container m-auto my-10">
+        <div className="grid grid-cols-3 justify-items-center">
           
-          {cities.map((city) => (
-            <Card
-              key={city.id}
-              title={city.title}
-              img={city.img}
-              isVisited={city.isVisited}
-            >
-              {city.description}
-            </Card>
-          ))}
-
           <button className="bg-blue-500 p-4" onClick={()=> setShowVisite(!showVisited)}>
           {showVisited ? 'Nascondi Città visitate' : 'Mostra Città visitate'}
           </button>
           <button className="bg-blue-500 p-4" onClick={()=> setShowNotVisite(!showNotVisited)}>
-          {showNotVisited ? 'Nascondi Città visitate' : 'Mostra Città visitate'}
+          {showNotVisited ? 'Nascondi Città da visitate' : 'Mostra Città da visitate'}
+          </button>
+          <button className="bg-blue-500 p-4" onClick={()=> setShowCity(!showCity)}>
+          {showCity ? 'Nascondi tutte le città' : 'Mostra tutte le Città'}
           </button>
         </div>
 
         <div className="grid grid-cols-2 justify-items-center">
           {showVisited && visited()}
           {showNotVisited && NotVisited()}
+          {showCity && allCity()}
         </div>
       </div>
     </>
