@@ -1,15 +1,21 @@
 import { useState } from "react";
 import "./App.scss";
 import Card from "./components/Card";
+import CardForm from "./components/CardForm";
+import { City } from "./interfaces/City";
+
+
+
 
 function App() {
   
   const [showCity, setShowCity] = useState(false);
   const [showVisited, setShowVisite] = useState(false);
   const [showNotVisited, setShowNotVisite] = useState(false);
-  const cities = [
+
+  const [cities, setCities] = useState([
     {
-      id: 0,
+      key: 0,
       title: "Tokyo",
       img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       isVisited: false,
@@ -17,7 +23,7 @@ function App() {
         "lorem ipsum dolor sit amet, consect dolor sit amet, sed diam dolor sit amet",
     },
     {
-      id: 1,
+      key: 1,
       title: "Roma",
       img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=1396&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       isVisited: true,
@@ -25,7 +31,7 @@ function App() {
         "lorem ipsum dolor sit amet, consect dolor sit amet, sed diam dolor sit amet",
     },
     {
-      id: 2,
+      key: 2,
       title: "Berlino",
       img: "https://images.unsplash.com/photo-1599946347371-68eb71b16afc?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       isVisited: false,
@@ -33,25 +39,26 @@ function App() {
         "lorem ipsum dolor sit amet, consect dolor sit amet, sed diam dolor sit amet",
     },
     {
-      id: 3,
+      key: 3,
       title: "Londra",
       img: "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       isVisited: true,
       description:
         "lorem ipsum dolor sit amet, consect dolor sit amet, sed diam dolor sit amet",
     },
-  ];
+  ]);
 
   function NotVisited(){
 
     return cities.filter((city) => !city.isVisited).map((city) => (
       <Card
-        key={city.id}
+        key={city.key}
         title={city.title}
         img={city.img}
         isVisited={city.isVisited}
+        description={city.description}
       >
-        {city.description}
+        
       </Card>
     ))
    
@@ -61,12 +68,13 @@ function App() {
 
     return cities.filter((city) => city.isVisited).map((city) => (
       <Card
-        key={city.id}
+        key={city.key}
         title={city.title}
         img={city.img}
         isVisited={city.isVisited}
+        description = {city.description}
       >
-        {city.description}
+        
       </Card>
     ))
    
@@ -76,17 +84,23 @@ function App() {
 
     return cities.map((city) => (
       <Card
-        key={city.id}
+        key={city.key}
         title={city.title}
         img={city.img}
         isVisited={city.isVisited}
+        description = {city.description}
       >
-        {city.description}
+        
       </Card>
     ))
   }
+
+ const addCity = (city: City) =>{
+  return setCities([...cities, city])
+ }
   return (
     <>
+    <CardForm onAddCity={addCity}></CardForm>
       <div className=" container m-auto my-10">
         <div className="grid grid-cols-3 justify-items-center">
           
@@ -100,12 +114,12 @@ function App() {
           {showCity ? 'Nascondi tutte le città' : 'Mostra tutte le Città'}
           </button>
         </div>
-
-        <div className="grid grid-cols-2 justify-items-center">
+        <div className="grid grid-cols-4 justify-items-center">
           {showVisited && visited()}
           {showNotVisited && NotVisited()}
           {showCity && allCity()}
         </div>
+        
       </div>
     </>
   );
