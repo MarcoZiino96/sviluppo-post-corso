@@ -95,25 +95,25 @@ function App() {
     ))
   }
 
- const addCity = (city: City) =>{
-  return setCities([...cities, city])
+ function addCity(city:City){
+   setCities([...cities, city])
  }
   return (
     <>
-    <CardForm onAddCity={addCity}></CardForm>
       <div className=" container m-auto my-10">
         <div className="grid grid-cols-3 justify-items-center">
           
-          <button className="bg-blue-500 p-4" onClick={()=> setShowVisite(!showVisited)}>
+          <button className="bg-teal-400 p-4 text-white font-bold" onClick={()=> setShowVisite(!showVisited)}>
           {showVisited ? 'Nascondi Città visitate' : 'Mostra Città visitate'}
           </button>
-          <button className="bg-blue-500 p-4" onClick={()=> setShowNotVisite(!showNotVisited)}>
+          <button className="bg-teal-400 p-4 text-white font-bold" onClick={()=> setShowNotVisite(!showNotVisited)}>
           {showNotVisited ? 'Nascondi Città da visitate' : 'Mostra Città da visitate'}
           </button>
-          <button className="bg-blue-500 p-4" onClick={()=> setShowCity(!showCity)}>
+          <button className="bg-teal-400 p-4 text-white font-bold" onClick={()=> setShowCity(!showCity)}>
           {showCity ? 'Nascondi tutte le città' : 'Mostra tutte le Città'}
           </button>
         </div>
+        <CardForm addCity={addCity}></CardForm>
         <div className="grid grid-cols-4 justify-items-center">
           {showVisited && visited()}
           {showNotVisited && NotVisited()}

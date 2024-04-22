@@ -1,29 +1,106 @@
-import { City } from "../interfaces/City"
+import { useState } from "react";
+import { City } from "../interfaces/City";
 
 interface CardFormProps {
-  onAddCity: (city: City) => void;
+  addCity: (city: City) => void;
 }
 
-function CardForm({ onAddCity }:CardFormProps){
+function CardForm({ addCity }: CardFormProps): JSX.Element {
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    img: "",
+    isVisited: false,
+  });
 
-  const handleClick = ()=>{
-     const city : City ={
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const city: City = {
       key: Math.floor(Math.random() * 1000000000),
-      title: "Palermo",
-      img: "https://images.unsplash.com/photo-1618048558171-8c9edde77055?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: formData.title,
+      img: formData.img,
+      isVisited: formData.isVisited,
+      description: formData.description,
+    };
+    addCity(city);
+    
+    setFormData({
+      title: "",
+      description: "",
+      img: "",
       isVisited: false,
-      description:
-        "lorem ipsum dolor sit amet, consect dolor sit amet, sed diam dolor sit amet",
-    }
-    onAddCity(city)
+    });
   }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, type, value } = e.target;
+    const inputValue = type == "checkbox" ? (e.target as HTMLInputElement).checked: value;
+    setFormData({
+      ...formData,
+      [name]: inputValue,
+    });
+  };
   return (
-    <div className='flex flex-col gap-3 w-80 mb-10'>
-        <input type="text" />
-        <input type="text" />
-        <input type="text" />
-        <button onClick={handleClick} className='bg-teal-400 p-4 rounded-md'>Aggiungi Card</button>
-    </div>
-  )
+    <>
+      <h2 className=" text-center font-bold text-emerald-500 text-5xl my-5">
+        Aggiungi una città da visitare
+      </h2>
+
+      <form className="bg-slate-200 p-10" onSubmit={handleSubmit}>
+        <div className="text-center pt-10 text-white">
+
+          <div className="flex flex-col">
+          <label className="text-black">Nome Città</label>
+            <input
+              className="bg-slate-800 mb-2"
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+            />
+            
+          </div>
+
+          <div className="flex flex-col">
+          <label className="text-black">Inserisci descrizione</label>
+            <textarea
+              className="bg-slate-800 mb-2"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div className="flex flex-col">
+          <label className="text-black">Inserisci immagine</label>
+            <input
+              className="bg-slate-800 mb-2"
+              type="text"
+              name="img"
+              value={formData.img}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div className="flex flex-col">
+          <label className="text-black">Visitata?</label>
+            <input
+              className="bg-slate-800 mb-2"
+              type="checkbox"
+              name="isVisited"
+              checked={formData.isVisited}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div>
+            <button type="submit" className="bg-teal-400 p-2 rounded-md">
+              Aggiungi Card
+            </button>
+          </div>
+        </div>
+      </form>
+    </>
+  );
 }
 export default CardForm;
