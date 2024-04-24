@@ -5,7 +5,7 @@ interface CardFormProps {
   addCity: (city: City) => void;
 }
 
-function CardForm({ addCity }: CardFormProps): JSX.Element {
+function CardForm({ addCity }:CardFormProps):JSX.Element {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -34,7 +34,7 @@ function CardForm({ addCity }: CardFormProps): JSX.Element {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, type, value } = e.target;
-    const inputValue = type == "checkbox" ? (e.target as HTMLInputElement).checked: value;
+    const inputValue = type == "checkbox" ? (e.target as HTMLInputElement).checked : value;
     setFormData({
       ...formData,
       [name]: inputValue,
