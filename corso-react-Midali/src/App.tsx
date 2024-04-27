@@ -6,6 +6,7 @@ import { City } from "./interfaces/City";
 import { Post } from "./interfaces/Post";
 import { FormState } from "./interfaces/formState";
 import { FormAction } from "./interfaces/formAction";
+import Conteggio from "./components/Conteggio";
 
 function App() {
   const [showCity, setShowCity] = useState<boolean>(false);
@@ -166,6 +167,7 @@ function App() {
 
   return (
     <>
+    <Conteggio></Conteggio>
       <div className=" container m-auto my-10">
         <div className="grid grid-cols-4 justify-items-center">
           <button
