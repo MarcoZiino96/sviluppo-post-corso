@@ -1,6 +1,6 @@
-export interface Post {
-  body: string;
+export interface PostInterface {
   id: number;
+  body: string;
   title: string;
   userId: number;
 }

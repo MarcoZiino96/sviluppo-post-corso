@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../redux/conterSlise";
+import { CounterState } from "../interfaces/CounterState";
 
 function Conteggio(){
-    const count = useSelector((state) => state.counter.value)
+    const count = useSelector((state: {counter : CounterState}) => state.counter.value)
     const dispatch = useDispatch();
 
     return(

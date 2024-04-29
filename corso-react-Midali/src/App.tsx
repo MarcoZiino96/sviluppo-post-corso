@@ -1,45 +1,24 @@
-import { useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import "./App.scss";
 import Card from "./components/Card";
 import CardForm from "./components/CardForm";
 import { City } from "./interfaces/City";
-import { Post } from "./interfaces/Post";
 import { FormState } from "./interfaces/formState";
 import { FormAction } from "./interfaces/formAction";
 import Conteggio from "./components/Conteggio";
+import { Link } from "react-router-dom";
 
 function App() {
   const [showCity, setShowCity] = useState<boolean>(false);
   const [showVisited, setShowVisite] = useState<boolean>(false);
   const [showNotVisited, setShowNotVisite] = useState<boolean>(false);
-  const [showPost, setShowPost] = useState<boolean>(false);
-  const [data, setData] = useState<Post[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+
   const [formState, dispatchFormState] = useReducer(formReducer, {
     name: "",
     email: "",
   });
 
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
-        if (!response.ok) throw new Error("Errore nella chiamata API");
-        const data = await response.json();
-        setData(data);
-        setLoading(false);
-      } catch (err) {
-        if (err instanceof Error) setError(err.message);
-        else setError("Errore sconociuto");
-        setLoading(false);
-      }
-    }
-    fetchPosts();
-  }, []);
-
+  
   function NotVisited() {
     return cities
       .filter((city) => !city.isVisited)
@@ -119,21 +98,6 @@ function App() {
     },
   ]);
 
-  function renderPosts() {
-    if (loading)
-      return <div className="text-center text-blue-700">Caricamento...</div>;
-
-    if (error) return <div>Errore: {error} </div>;
-
-    return data.map((post) => (
-      <div className="bg-emerald-500 p-3" key={post.id}>
-        <p className="text-2xl">userId: {post.userId}</p>
-        <h1 className="font-bold text-black">{post.title}</h1>
-        <p className="text-white font-bold">{post.body}</p>
-      </div>
-    ));
-  }
-
   function formReducer(state: FormState, action: FormAction): FormState {
     switch (action.type) {
       case "CHANGE_FIELD":
@@ -167,6 +131,10 @@ function App() {
 
   return (
     <>
+    <div className="text-center font-bold bg-gray-800 text-white text-2xl p-10 mb-4">
+    <Link to={"/posts"}> Vai a i Post</Link>
+    </div>
+   
     <Conteggio></Conteggio>
       <div className=" container m-auto my-10">
         <div className="grid grid-cols-4 justify-items-center">
@@ -189,12 +157,6 @@ function App() {
             onClick={() => setShowCity(!showCity)}
           >
             {showCity ? "Nascondi tutte le città" : "Mostra tutte le Città"}
-          </button>
-          <button
-            className="bg-teal-400 p-4 text-white font-bold"
-            onClick={() => setShowPost(!showPost)}
-          >
-            {showPost ? "Nascondi tutti i posts" : "Mostra tutti i posts"}
           </button>
         </div>
         <CardForm addCity={addCity}></CardForm>
@@ -236,9 +198,7 @@ function App() {
         </div>
       </div>
 
-      <div className="rounded grid grid-cols-4 text-center justify-items-center gap-5">
-        {showPost && renderPosts()}
-      </div>
+     
 
      
     </>
