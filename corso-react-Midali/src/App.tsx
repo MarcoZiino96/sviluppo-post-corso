@@ -19,7 +19,7 @@ function App() {
   });
 
   
-  function NotVisited() {
+  const NotVisited = () => {
     return cities
       .filter((city) => !city.isVisited)
       .map((city) => (
@@ -204,5 +204,7 @@ function App() {
     </>
   );
 }
+
+
 
 export default App;
