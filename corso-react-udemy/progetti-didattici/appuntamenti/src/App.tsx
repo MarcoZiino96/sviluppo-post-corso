@@ -4,6 +4,7 @@ import data from "./data";
 import { IPerson } from "./interface/person-interface";
 import List from "./components/List";
 
+
 function App(): JSX.Element {
   const [people, setPeople] = useState<IPerson[]>(data);
 
