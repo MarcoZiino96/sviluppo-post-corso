@@ -1,33 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+import { useEffect, useState } from 'react';
 import './App.css'
+import axios from 'axios';
+import { IPost } from './interfaces/IPost';
+import RenderPosts from './components/renderPosts';
+import ChangeColorMode from './components/ChangeColorMode';
+
+
+const url = "https://jsonplaceholder.typicode.com/posts";
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
+  const removePost = (id: number) => {
+    setPosts((oldValue) => oldValue.filter((value) => value.id !== id));
+  };
+
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+
+  async function arrayPost() {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(url);
+      setPosts(response.data);
+    } catch (error) {
+      console.log(error);
+
+      setIsError(true);
+    }
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    arrayPost();
+  }, []);
+
+
+  
+ 
+ return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+<main>
+<div className='p-10 text-center'>
+    <ChangeColorMode></ChangeColorMode>
+  </div>
+<section className='flex justify-center h-full p-10'>
+  <div className='container'>
+  <RenderPosts data = {posts}  removePost = {removePost}>
+    </RenderPosts>
+  </div>
+    
+    </section>
+</main>
+    
+    
     </>
   )
 }
