@@ -15,9 +15,7 @@ function Posts() {
         );
         if (!response.ok) throw new Error("Errore nella chiamata API");
         const data = await response.json();
-        setData(data);
-        console.log(data);
-        
+        setData(data);  
       } catch (err) {
         if (err instanceof Error) setError(err.message);
         else setError("Errore sconociuto");
@@ -38,12 +36,7 @@ function Posts() {
     </div>
       <div className="rounded grid grid-cols-4 text-center justify-items-center gap-5">
         {data.map((post) => (
-          <Post
-            key={post.id}
-            id={post.id}
-            userId={post.userId}
-            title={post.title}
-            body={post.body}
+          <Post {...post}
           ></Post> 
         ))}
       </div>
