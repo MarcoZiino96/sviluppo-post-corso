@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.slider {
+    display: flex;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 400px;
+  width: 100%;
+  }
+  
+  .slide {
+    width: 90%;
+    top: 35%;
+    left: 50%;
+    transform: translate(0%, -50%);
+    position: absolute;
+    transition: var(all 0.3s linear);
+    opacity: 0;
+  }
+
+  .next{
+    right: 0;
+    transform: translateX(150%);
+    opacity: 0;
+  }
+  
+  .prev {
+    left: 0;
+    transform: translateX(-150%);
+    opacity: 0;
+  }
+  
+  .active {
+    transform: translate(-50%, 0%);
+    opacity: 1;
+  }
+  
