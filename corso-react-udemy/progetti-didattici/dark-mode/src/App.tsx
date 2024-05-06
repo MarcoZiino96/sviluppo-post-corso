@@ -47,7 +47,9 @@ function App() {
 <div className='p-10 text-center'>
     <ChangeColorMode></ChangeColorMode>
   </div>
+  
 <section className='flex justify-center h-full p-10'>
+
   <div className='container'>
   <RenderPosts data = {posts}  removePost = {removePost}>
     </RenderPosts>
