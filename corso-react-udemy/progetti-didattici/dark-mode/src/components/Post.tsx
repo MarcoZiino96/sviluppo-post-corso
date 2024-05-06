@@ -12,6 +12,7 @@ function Post({ id, title, body, removePost }:IPropsPost) {
    
       
         <div className=" card p-3 rounded-md shadow-lg m-3">
+          
           <div>
             <h1 className="font-bold">{title}</h1>
           </div>
