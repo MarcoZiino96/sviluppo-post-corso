@@ -5,12 +5,13 @@ interface CardFormProps {
   addCity: (city: City) => void;
 }
 
-function CardForm({ addCity }:CardFormProps):JSX.Element {
+function CardForm({ addCity }:CardFormProps):JSX.Element{
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     img: "",
-    isVisited: false,
+    isVisited: true,
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -47,6 +48,7 @@ function CardForm({ addCity }:CardFormProps):JSX.Element {
       </h2>
 
       <form className="bg-slate-200 p-10" onSubmit={handleSubmit}>
+
         <div className="text-center pt-10 text-white">
 
           <div className="flex flex-col">
@@ -73,6 +75,7 @@ function CardForm({ addCity }:CardFormProps):JSX.Element {
 
           <div className="flex flex-col">
           <label className="text-black">Inserisci immagine</label>
+          
             <input
               className="bg-slate-800 mb-2"
               type="text"

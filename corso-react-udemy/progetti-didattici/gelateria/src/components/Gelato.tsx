@@ -23,7 +23,7 @@ function Gelato({nome, img, descrizione, prezzo, categoria}:IGelato):JSX.Element
                 </div>
 
                 <div>
-                    <h6 className='bg-cyan-700 text-white'>{(prezzo / 100).toFixed(2)}</h6>
+                    <h6 className='bg-cyan-700 p-1 text-white'>{(prezzo / 100).toFixed(2)}</h6>
                 </div>
 
             </div>
