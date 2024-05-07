@@ -40,7 +40,7 @@ function Sliders() {
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [active]);
+  }, [active, recensioni.length]);
 
   return (
     <div className="container">
