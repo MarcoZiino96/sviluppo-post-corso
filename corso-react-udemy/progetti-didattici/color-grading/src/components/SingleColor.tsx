@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { rgbToHex } from '../utils/rgbToHex';
 import { IRgb } from '../interfaces/IRgb';
 
-function SingleColor(rgb:IRgb, type:string): JSX.Element {
+function SingleColor({alpha, rgb, type, weight}:IRgb): JSX.Element {
 
     const [message, setMessage] = useState<boolean>(false);
 
@@ -17,7 +17,7 @@ function SingleColor(rgb:IRgb, type:string): JSX.Element {
         if(message){
             const timer = setTimeout(() => {
                 setMessage(false)
-            }, 4000)
+            }, 1000)
 
             return (() => clearTimeout(timer))
         }
@@ -27,37 +27,19 @@ function SingleColor(rgb:IRgb, type:string): JSX.Element {
 
         <>
         <article
-        className={`flex h-40 ${type}`} 
+        className={` border-2 mb-5 text-center border-slate-950 h-40  rounded-lg ${type}`} 
         onClick={copiaColore}
-        style={{backgroundColor: `${rgbToHex(rgb)}`}}
+        style={{backgroundColor: `${rgbToHex(rgb)}`,
+                boxShadow: ` 8px 8px 20px ${rgbToHex(rgb)}`}}
         >
-            <h5>{rgbToHex(rgb)}</h5>
+            <h5 className='font-bold my-5'>{rgbToHex(rgb)}</h5>
 
-            {message && <p>Copied</p>}
+            {message && <p className='text-center bg-slate-800  rounded-lg font-bold text-white text-xl '>Copied</p>}
         </article>
         </>
     )
 
     }
 
-    
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    return (
-    <div>SingleColor</div>
-  )
-}
 
 export default SingleColor

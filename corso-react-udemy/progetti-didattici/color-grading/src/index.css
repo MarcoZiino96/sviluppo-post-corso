@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.tint {
+    color: #222;
+  }
+  
+  .shade {
+    color:#efefef;
+  }
